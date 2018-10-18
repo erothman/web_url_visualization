@@ -49,6 +49,13 @@ def processInput(data):
         entry["lastModifiedDate"] = i["lastModifiedDate"]
         full_data.append(entry)
 
+def testFunction():
+    data = getInput("test.json")
+    processInput(data)
+    global current_data
+    current_data = full_data.copy()
+    return full_data
+
 @app.route('/', methods=['GET', 'POST'])
 def start():
     for json in json_file_info:

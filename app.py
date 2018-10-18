@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import json
 from flask_jsonpify import jsonify
+from operator import itemgetter
 
 app = Flask(__name__)
 
@@ -37,12 +38,12 @@ def processInput(data):
             if "baseMetricV3" in i["impact"]:
                 entry["metricV3BaseScore"] = i["impact"]["baseMetricV3"]["cvssV3"]["baseScore"]
             else:
-                entry["metricV3BaseScore"] = "N/A"
+                entry["metricV3BaseScore"] = -1
         else:
             entry["accessVector"] = "N/A"
             entry["severity"] = "N/A"
-            entry["metricV2BaseScore"] = "N/A"
-            entry["metricV3BaseScore"] = "N/A"
+            entry["metricV2BaseScore"] = -1
+            entry["metricV3BaseScore"] = -1
 
         entry["publishedDate"] = i["publishedDate"]
         entry["lastModifiedDate"] = i["lastModifiedDate"]
@@ -66,9 +67,9 @@ def get_data():
 def get_data_ordered(field, reverse=None):
     global current_data
     if reverse == 'true':
-        data = sorted(current_data, key=lambda k: k[field], reverse=True)
+        data = sorted(current_data, key=itemgetter(field), reverse=True)
     else:
-        data = sorted(current_data, key=lambda k: k[field], reverse=False)
+        data = sorted(current_data, key=itemgetter(field), reverse=False)
     current_data = data
     return jsonify(current_data)
 

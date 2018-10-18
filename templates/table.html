@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="VulnerabilityTableApp">
+  <body ng-controller="TableCtrl">
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="../static/main.js"></script>
+<!--<script src="../static/main.js"></script>
+    <table>
+    </table>-->
+    <form>
+      Search Term: <input type="text" ng-model="queryTerm"> <button ng-click="getQueriedData()">Search</button> <button ng-click="queryTerm = ''; getQueriedData();">Reset</button>
+    </form>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th ng-click="getOrganizedData('ID')">ID<span class="caret"></span></th>
+          <th ng-click="getOrganizedData('problem_type')">Problem Type<span class="caret"></span></th>
+          <th ng-click="getOrganizedData('description')">Description<span class="caret"></span></th>
+          <th ng-click="getOrganizedData('accessVector')">Access Vector<span class="caret"></span></th>
+          <th ng-click="getOrganizedData('severity')">Severity<span class="caret"></span></th>
+          <th ng-click="getOrganizedData('metricV2BaseScore')">MetricV2 Base Score<span class="caret"></span></th>
+          <th ng-click="getOrganizedData('metricV2BaseScore')">MetricV3 Base Score<span class="caret"></span></th>
+          <th ng-click="getOrganizedData('publishedDate')">Published Date<span class="caret"></span></th>
+          <th ng-click="getOrganizedData('lastModifiedDate')">Date Last Modified<span class="caret"></span></th>
+        </tr>
+      </thead>
+      <tbody>
+      {% raw %}
+        <tr ng-repeat="x in vulnerabilities">
+          <td>{{ x.ID }}</td>
+          <td>{{ x.problem_type }}</td>
+          <td>{{ x.description }}</td>
+          <td>{{ x.accessVector }}</td>
+          <td>{{ x.severity }}</td>
+          <td>{{ x.metricV2BaseScore }}</td>
+          <td>{{ x.metricV3BaseScore }}</td>
+          <td>{{ x.publishedDate }}</td>
+          <td>{{ x.lastModifiedDate}}</td>
+        </tr>
+        {% endraw %}
+      </tbody>
+    </table>
+  </body>
+</html>
